@@ -1,38 +1,53 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.Buttons {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  top: 57%;
+  left: 50%;
+  -webkit-transform: translateX(-140px);
+          transform: translateX(-140px);
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
-.App-link {
-  color: #61dafb;
+.Header {
+  font: inherit;
+  font-size: 60px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 2.5%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App {
+  font-family: 'Segoe UI';
+  font-weight: 600;
+  font-size: larger;
+  color: #6D3F3F;
+}
+
+body {
+  background-color: #EAEAEA;
+}
+
+.logo {
+  position: fixed;
+  top: 23%;
+  left: 50%;
+  -webkit-transform: translateX(-85px);
+          transform: translateX(-85px);
+  z-index: 500;
+}
+
+.reroll {
+  position: fixed;
+  top: 65%;
+  left: 50%;
+  -webkit-transform: translateX(-70px);
+          transform: translateX(-70px);
 }
