@@ -1,8 +1,9 @@
+
 .Result
-    position: fixed
-    width: fit-content
+    position: relative
+    width: max-content
     max-width: 300px
-    height: fit-content
+    height: min-content
     margin: 0px
     padding: 5px 10px
     background-color: #EFEFEF
@@ -13,35 +14,39 @@
     font-size: large
     color: #6D3F3F
     z-index: 200
-.Result:hover .result-dropdown
+.result-container:hover .result-dropdown
     display: block
     z-index: 600
-.Result-1
+.result-container 
+    position: absolute  
+    display: block
+    margin: none
+    z-index: 50
+.result-container-1
     transform: translate(265px,-120px)
-.Result-2
+.result-container-2
     transform: translate(280px,-20px)
-.Result-3
+.result-container-3
     transform: translate(265px,80px)
-.Result-4
+.result-container-4
     transform: translate(-265px,-120px)
-.Result-5
+.result-container-5
     transform: translate(-280px,-20px)
-.Result-6
+.result-container-6
     transform: translate(-265px, 80px)
 
 .result-dropdown
     display: none
     margin-top: 5px
     padding: 3px
-    position: absolute
+    position: relative
     padding: 5px
     font: inherit
     font-size: small
     font-weight: 400
     width: 300px
-    max-width: 300px
     height: fit-content
-    background-color: #dfdfdf
+    background-color: #e9e9e9
     border: 1px solid black
     border-radius: 5px
     z-index: 300

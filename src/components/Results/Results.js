@@ -24,10 +24,6 @@ const Results = (props) => {
             document.getElementById("l4").style.transform = `translate(-${270 + l1}px,-120px)`;
             document.getElementById("l5").style.transform = `translate(-${295 + l2}px,-20px)`;
             document.getElementById("l6").style.transform = `translate(-${270 + l3}px, 80px)`;
-            for (let i = 1; i<7; i++) {
-                document.getElementById(`l${i}`).style.zIndex = "100";
-            }
-
             try {
                 
                 for (let item in props.data) {
@@ -46,7 +42,7 @@ const Results = (props) => {
         try {
         if ( pages != null) {
             for (const [key,value] of Object.entries(pages.query.pages)) {
-                    obj[value.title] = value.extract != null ? value.extract.trim() : "Unavailable";
+                    obj[value.title] = value.extract !== undefined ? value.extract.trim() : "Unavailable";
                     if (obj[value.title] === "") {obj[value.title] = "Unavailable"}
                 }
                 
@@ -62,7 +58,7 @@ const Results = (props) => {
                         <a.div key={index} className={`Arrow Arrow-${index + 1}`} style={style}/>
                         <Result 
                             key={index + 5} 
-                            customStyle={`Result-${index + 1}`} 
+                            customStyle={`result-container-${index + 1}`} 
                             style={style} 
                             myId={`l${index + 1}`}
                             snippet = {snippets != null ? snippets[props.data[index]] : null}

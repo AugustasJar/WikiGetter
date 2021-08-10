@@ -1,11 +1,12 @@
 .Results {
-  position: fixed;
+  position: absolute;
   left: 50%;
   top: 35%;
 }
 
 .Arrow {
-  position: fixed;
+  position: absolute;
+  padding: none;
   margin: none;
   width: 150px;
   height: 1px;
