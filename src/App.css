@@ -32,7 +32,8 @@
 }
 
 body {
-  background-color: #EAEAEA;
+  background-color: #f3f3f3;
+  overflow: hidden;
 }
 
 .logo {

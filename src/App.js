@@ -9,6 +9,7 @@ import SearchBar from "./components/SearchBar/SearchBar.js";
 import Button from "./components/UI/Button/Button.js";
 import Results from "./components/Results/Results";
 import Logo from './components/UI/Logo/Logo';
+import Footer from './components/Footer/Footer';
 
 function App() {
   const [status, pages,fetchData] = useFetchData();
@@ -82,6 +83,7 @@ function App() {
         <Button click={rerollHandler} style={{opacity: showResults ? 1 : 0}}>reroll</Button>
       </div>
       <Logo />
+      <Footer />
     </div>
   )
 }
