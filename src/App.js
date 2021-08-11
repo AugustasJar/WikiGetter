@@ -4,12 +4,13 @@ import useFetchData from './hooks/useFetchData.js';
 import './App.css';
 import params from './Params';
 
-
+import HelpIcon from './components/UI/HelpIcon/HelpIcon.js'
 import SearchBar from "./components/SearchBar/SearchBar.js";
 import Button from "./components/UI/Button/Button.js";
 import Results from "./components/Results/Results";
 import Logo from './components/UI/Logo/Logo';
 import Footer from './components/Footer/Footer';
+import Modal from './components/UI/Modal/Modal';
 
 function App() {
   const [status, pages,fetchData] = useFetchData();
@@ -17,6 +18,7 @@ function App() {
   const [showResults,setShowResults] = useState(false);
   const [generatedPages,setGeneratedPages] = useState(null);
   const [lastTitle, setLastTitle] = useState("");
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {
     searchBarREF.current.focus();
   },[]);
@@ -51,6 +53,9 @@ function App() {
       setShowResults(state => !state)
     },1000)
   }
+  const modalHandler = () => {
+    setShowModal(state => !state);
+  }
   const generatePages = () => {
     if (pages!= null) {
       try {
@@ -72,6 +77,8 @@ function App() {
   }
   return (
     <div className= "App">
+      <Modal show={showModal} toggleModal={modalHandler}/>
+      <HelpIcon click={modalHandler}/>
       <div className="Header"> WikiMap </div>
       <SearchBar ref={searchBarREF}/>
       <div className="Buttons">
