@@ -1,19 +1,32 @@
 .Buttons {
-  position: fixed;
+  position: absolute;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
+  -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  top: 57%;
-  left: 50%;
-  -webkit-transform: translateX(-140px);
-          transform: translateX(-140px);
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  left: 50%;
+  top: 57%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+
+.Buttons-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.Buttons-bottom {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -30px;
 }
 
 .Header {
@@ -39,17 +52,9 @@ body {
 
 .logo {
   position: fixed;
-  top: 23%;
+  top: 21%;
   left: 50%;
   -webkit-transform: translateX(-85px);
           transform: translateX(-85px);
-  z-index: 500;
-}
-
-.reroll {
-  position: fixed;
-  top: 65%;
-  left: 50%;
-  -webkit-transform: translateX(-70px);
-          transform: translateX(-70px);
+  z-index: 10;
 }

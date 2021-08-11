@@ -1,11 +1,19 @@
+
 .Buttons
-    position: fixed
+    position: absolute
     display: flex
-    flex-direction: row
-    top: 57%
-    left: 50%
-    transform: translateX(-140px)
+    flex-direction: column
     height: fit-content
+    left: 50%
+    top: 57%
+    transform: translate(-50%,0)
+.Buttons-top
+    display: flex
+.Buttons-bottom
+    display: block
+    margin-left: auto
+    margin-right: auto
+    margin-top: -30px
 .Header
     font: inherit
     font-size: 45px
@@ -23,12 +31,7 @@ body
     overflow: hidden
 .logo
     position: fixed
-    top: 23%
+    top: 21%
     left: 50%
     transform: translateX(-85px)
-    z-index: 500
-.reroll
-    position: fixed
-    top: 65%
-    left: 50%
-    transform: translateX(-70px)
+    z-index: 10
