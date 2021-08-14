@@ -1,11 +1,15 @@
 .Results {
-  position: fixed;
+  position: absolute;
   left: 50%;
-  top: 35%;
+  top: 55%;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
 }
 
 .Arrow {
-  position: fixed;
+  display: none;
+  position: absolute;
+  padding: none;
   margin: none;
   width: 150px;
   height: 1px;
@@ -43,4 +47,13 @@
 .Arrow-4 {
   -webkit-transform: translate(-260px, 70px) rotate(-200deg);
           transform: translate(-260px, 70px) rotate(-200deg);
+}
+
+@media (min-width: 950px) {
+  .Arrow {
+    display: block;
+  }
+  .Results {
+    top: 35%;
+  }
 }

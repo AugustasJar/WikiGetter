@@ -1,32 +1,48 @@
+
 .Buttons
-    position: fixed
+    position: absolute
     display: flex
-    flex-direction: row
-    top: 57%
-    left: 50%
-    transform: translateX(-140px)
+    flex-direction: column
     height: fit-content
+    left: 50%
+    top: 40%
+    transform: translate(-50%,0)
+.Buttons-top
+    display: flex
+.Buttons-bottom
+    display: block
+    margin-left: auto
+    margin-right: auto
+    margin-top: -30px
 .Header
     font: inherit
-    font-size: 60px
+    font-size: 50px
+    text-shadow: 2 px 2px 1px rgba(0,0,0,0.1)
     font-weight: bold
     text-align: center
-    margin-top: 2.5%
+    margin-top: 1vh
 .App
     font-family: 'Segoe UI'
     font-weight: 600
     font-size: larger
     color: #6D3F3F
 body
-    background-color: #EAEAEA
+    background-color: #f3f3f3
+    overflow: hidden
+    overflow-y: scroll
 .logo
+    display: none
     position: fixed
-    top: 23%
+    top: 23vh
     left: 50%
-    transform: translateX(-85px)
-    z-index: 500
-.reroll
-    position: fixed
-    top: 65%
-    left: 50%
-    transform: translateX(-70px)
+    transform: translateX(-50%)
+    z-index: 10
+.Logo-inner
+    height: 10vw
+@media (min-width: 950px)
+    .logo
+        display: block
+@media (min-width: 550px)
+    .Buttons
+        top: 57%
+
