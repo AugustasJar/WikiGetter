@@ -5,7 +5,7 @@ const SearchBar = forwardRef((props,ref) => {
     return (
     <input 
         type="text" 
-        className="SearchBar" 
+        className="SearchBar-alternative"
         ref={ref}>
         </input>)
 })

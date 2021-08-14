@@ -14,7 +14,33 @@
     font-weight: 600
     font-size: larger
     color: #6D3F3F
+.SearchBar-alternative
+    display: block
+    position: absolute
+    top: 34%
+    left: 50%
+    width: 300px
+    background-color: white
+    border: 1px solid #909090
+    box-shadow: 2px 3px 2px rgba(0,0,0,0.2), 2px 7px 10px -2px rgba(0,0,0,0.1)
+    border-radius: 15px
+    padding: 5px
+    text-align: center
+    font-family: 'Segoe UI'
+    font-weight: 600
+    font-size: larger
+    color: #6D3F3F
+    transform: translateX(-50%)
+
+.SearchBar-alternative:focus
+    outline: none
+.SearchBar-alternative:active
+    outline: none
 .SearchBar:focus
     outline: none
 .SearchBar:active
     outline: none
+
+@media (min-width: 550px)
+    .SearchBar-alternative
+        top: 50%

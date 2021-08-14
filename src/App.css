@@ -11,7 +11,7 @@
   height: -moz-fit-content;
   height: fit-content;
   left: 50%;
-  top: 57%;
+  top: 40%;
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
 }
@@ -31,7 +31,7 @@
 
 .Header {
   font: inherit;
-  font-size: 45px;
+  font-size: 50px;
   text-shadow: 2 px 2px 1px rgba(0, 0, 0, 0.1);
   font-weight: bold;
   text-align: center;
@@ -48,13 +48,31 @@
 body {
   background-color: #f3f3f3;
   overflow: hidden;
+  overflow-y: scroll;
 }
 
 .logo {
+  display: none;
   position: fixed;
-  top: 21%;
+  top: 23vh;
   left: 50%;
-  -webkit-transform: translateX(-85px);
-          transform: translateX(-85px);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   z-index: 10;
+}
+
+.Logo-inner {
+  height: 10vw;
+}
+
+@media (min-width: 950px) {
+  .logo {
+    display: block;
+  }
+}
+
+@media (min-width: 550px) {
+  .Buttons {
+    top: 57%;
+  }
 }
