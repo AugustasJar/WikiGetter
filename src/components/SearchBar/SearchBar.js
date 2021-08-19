@@ -3,10 +3,15 @@ import './SearchBar.css';
 
 const SearchBar = forwardRef((props,ref) => {
     return (
-    <input 
+    <form className="search-wrapper" onClick={event => event.preventDefault()}>
+        <input 
         type="text" 
-        className="SearchBar-alternative"
-        ref={ref}>
-        </input>)
+        className="SearchBar"
+        ref={ref}
+        placeholder="Search...">
+        </input>
+        <button onClick={props.click} className="Search-button"/>
+    </form>
+    )
 })
 export default SearchBar;

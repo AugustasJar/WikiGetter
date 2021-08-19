@@ -1,5 +1,46 @@
-.Buttons {
+body {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.Header {
   position: absolute;
+  height: 105px;
+  width: 100%;
+  background-color: #112D4E;
+  -webkit-box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.4), 3px 5px 2px rgba(0, 0, 0, 0.2);
+          box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.4), 3px 5px 2px rgba(0, 0, 0, 0.2);
+  border: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding-top: 10px;
+  z-index: 100;
+}
+
+.app-name {
+  display: none;
+}
+
+.Logo {
+  display: block;
+  height: 60px;
+  width: 60px;
+  margin: 20px;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
+  background-color: black;
+}
+
+.content {
+  position: absolute;
+  top: 120px;
+  z-index: 50;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -7,72 +48,70 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  left: 50%;
-  top: 40%;
-  -webkit-transform: translate(-50%, 0);
-          transform: translate(-50%, 0);
-}
-
-.Buttons-top {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.Buttons-bottom {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: -30px;
-}
-
-.Header {
-  font: inherit;
-  font-size: 50px;
-  text-shadow: 2 px 2px 1px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
-  text-align: center;
-  margin-top: 1vh;
-}
-
-.App {
-  font-family: 'Segoe UI';
-  font-weight: 600;
-  font-size: larger;
-  color: #6D3F3F;
-}
-
-body {
-  background-color: #f3f3f3;
+  height: 80vh;
+  width: 100%;
   overflow: hidden;
-  overflow-y: scroll;
 }
 
-.logo {
+.guide {
   display: none;
-  position: fixed;
-  top: 23vh;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  z-index: 10;
 }
 
-.Logo-inner {
-  height: 10vw;
-}
-
-@media (min-width: 950px) {
-  .logo {
-    display: block;
+@media (min-width: 700px) {
+  body {
+    overflow-y: hidden;
+    background-color: #F9F7F7;
   }
-}
-
-@media (min-width: 550px) {
-  .Buttons {
-    top: 57%;
+  .Header {
+    position: relative;
+    width: 80%;
+    height: 85px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0;
+    background-color: #112D4E;
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2), 2px 4px 10px 3px rgba(0, 0, 0, 0.05);
+            box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.2), 2px 4px 10px 3px rgba(0, 0, 0, 0.05);
+    border-radius: 2px;
+    color: #EEEEEE;
+  }
+  .app-name {
+    display: block;
+    font-size: 40px;
+    font-weight: 700;
+    margin-top: 20px;
+    color: inherit;
+  }
+  .content {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #c1cedd67;
+    width: 75%;
+  }
+  .Logo {
+    height: 50px;
+    width: 50px;
+  }
+  .guide {
+    display: block;
+    width: 40%;
+    height: 100%;
+    font: inherit;
+    font-size: 25px;
+    font-weight: 500;
+    color: #2b2b2b;
+    margin-left: 30px;
+    margin-top: 30px;
+    line-height: 34px;
   }
 }

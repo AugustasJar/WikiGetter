@@ -1,19 +1,23 @@
+@import '../../css-variables'
+
 .Footer
     position: absolute
-    display: flex
-    flex-direction: column
-    justify-content: space-between
+    bottom: -10%
     width: 100%
-    bottom: -200px
-    background-color: #383838
-    color: #adadad
-    font-weight: 300
-    padding-top: 10px
-    padding-bottom: 10px
-.Footer p
-    display: block
-    margin: 15px 20px
-@media (min-width: 550px) 
+    height: 105px
+    background-color: $--medium
+    color: #dfdfdf
+    border: none
+    z-index: 300
+.Footer p 
+    margin-left: 10px
+@media (min-width: $breakpoint-tablet)
     .Footer
+        display: flex
         flex-direction: row
+        justify-content: space-between
         bottom: 0
+        height: fit-content
+    .Footer p 
+        display: block
+        margin: 20px 20px

@@ -1,7 +1,11 @@
 import React,{useState,useEffect, createRef} from "react";
 import useFetchData from './hooks/useFetchData.js';
+import { useSpring,a} from "react-spring"
 
 import './App.css';
+import './css-variables.css'
+import './css-variables.sass'
+
 import params from './Params';
 
 import HelpIcon from './components/UI/HelpIcon/HelpIcon.js'
@@ -11,24 +15,43 @@ import Results from "./components/Results/Results";
 import Logo from './components/UI/Logo/Logo';
 import Footer from './components/Footer/Footer';
 import Modal from './components/UI/Modal/Modal';
+import SubHeader from "./components/SubHeader/SubHeader.js";
+import InfoBox from "./components/InfoBox/InfoBox.js";
 
 function App() {
-  const [status, pages,fetchData] = useFetchData();
   const searchBarREF = React.createRef();
-  const [showResults,setShowResults] = useState(false);
+  const [status, pages,fetchData] = useFetchData();
   const [generatedPages,setGeneratedPages] = useState(null);
   const [lastTitle, setLastTitle] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [showResults,setShowResults] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [dropdownContent, setDropdownContent] = useState("")
+  const [guideText,setGuideText] = useState("");
+  const [hasShown, sethasShown] = useState(false)
+  const style = useSpring({
+    marginTop: showDropdown ? "0px" : "-110px",
+    opacity: showDropdown ? 1 : 0
+  })
+  const guideFadeAway = useSpring({
+    opacity: showResults ? 1 : 0,
+    clamp: true,
+    tension: 50,
+    friction: 50,
+    delay: 100
+  })
   useEffect(() => {
     searchBarREF.current.focus();
   },[]);
   useEffect(() => {
     if ( status==="completed") {
       generatePages();
+      sethasShown(true);
       setShowResults(state => (!state));
     }
   },[status]);
   const searchHandler = () => {
+    console.log("searchHandler-enter")
     params.titles = searchBarREF.current.value;
     if (params.titles != lastTitle && !showResults) {
       fetchData(params);
@@ -61,6 +84,7 @@ function App() {
       try {
         let arr = [];
         const obj = pages.query.pages[Object.keys(pages.query.pages)[0]];
+        setGuideText(obj.extract);
         for (let i=0;i<6;i++) {
           let temp = obj.links[Math.floor(Math.random()*obj.links.length)].title;
           if (temp.includes(":")) {
@@ -70,10 +94,26 @@ function App() {
             arr.push(temp);
           }
         }
-        setGeneratedPages(arr);
+          setShowDropdown(false)
+          setGeneratedPages(arr);
       }
-      catch (error) {setGeneratedPages(null); console.log(error)}
+      catch (error) {setGeneratedPages(null);noResultsHandler()}
     }
+  }
+  const noResultsHandler = () => {
+    console.log("no Results Handler")
+    setDropdownContent(
+      <p>no results were found. <br/> try <b>random</b>?</p>
+    )
+    setShowDropdown(true);
+  }
+  const changeTargetHandler = (target) => {
+    searchBarREF.current.value = target;
+    searchHandler();
+  }
+  const goToHandler = () => {
+    const url = `https://en.wikipedia.org/wiki/${searchBarREF.current.value}`
+    window.open(url)
   }
   return (
     <div className= "App">
@@ -87,20 +127,23 @@ function App() {
         </ul>
         <Button click={modalHandler}>close</Button>
       </Modal>
-      <HelpIcon click={modalHandler}/>
-      <div className="Header"> WikiMap </div>
-      <SearchBar ref={searchBarREF}/>
-      <div className="Buttons">
-        <div className="Buttons-top">
-          <Button click={randomHandler}> Random </Button>
-        < Button click = {searchHandler}> Search </Button>
-        </div>
-        <div className="Buttons-bottom">
-          <Button click={rerollHandler} style={{opacity: showResults ? 1 : 0}}>reroll</Button>
-        </div>
+      <div className="Header">
+        <div className="Logo" />
+        <div className="app-name"> Wikimap </div>
+        <SearchBar ref ={searchBarREF} click={searchHandler}/>
       </div>
-      <Results showResults={showResults} data={generatedPages}/>
-      <Logo />
+      <div className="content">
+        <SubHeader style={style} close={() => setShowDropdown(false)}>
+          {dropdownContent}
+        </SubHeader>
+        <a.div className="guide" style={hasShown ? guideFadeAway : {}}>
+          {showResults ? <InfoBox reroll={rerollHandler} goTo={goToHandler}> {guideText} </InfoBox> : hasShown ? <InfoBox> {guideText} </InfoBox>: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate porttitor purus et commodo. Integer dictum leo volutpat leo ultricies porttitor. Vivamus vel feugiat libero. Aenean quis justo ut purus placerat ultrices. Donec sagittis dui et mi sodales, id consequat enim congue. Ut in rutrum enim. Donec in tortor libero."}
+        </a.div>
+        <Results data={generatedPages} 
+          showResults={showResults} 
+          changeTarget = {changeTargetHandler}
+          />
+      </div>
       <Footer />
     </div>
   )

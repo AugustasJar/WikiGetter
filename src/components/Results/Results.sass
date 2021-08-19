@@ -1,33 +1,13 @@
+@import '../../css-variables'
 .Results
-    position: absolute
-    left: 50%
-    top: 55%
-    transform: translate(-50%,0);
-.Arrow
-    display: none
-    position: absolute
-    padding: none
-    margin: none
-    width: 150px
-    height: 1px
-    background-color: grey
-    border: 1px solid grey
-    border-radius: 1px
-.Arrow-1
-    transform: translate(100px,-70px) rotate(-20deg)
-.Arrow-2
-    width: 144px
-    transform: translate(120px,0);
-.Arrow-3
-    transform: translate(100px,70px) rotate(20deg)
-.Arrow-6
-    transform: translate(-260px,-70px) rotate(-160deg)
-.Arrow-5
-    transform: translate(-280px,0)
-.Arrow-4
-    transform: translate(-260px,70px) rotate(-200deg)
-@media (min-width: 950px) 
-    .Arrow
-        display: block
+    position: relative
+    display: flex
+    flex-direction: column
+    height: 100%
+    width: 100%
+@media (min-width: $breakpoint-tablet)
     .Results
-        top: 35%
+        display: block
+        width: 60%
+        margin: 0
+        padding-top: 20px
