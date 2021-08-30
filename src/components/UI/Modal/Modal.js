@@ -5,7 +5,7 @@ import React from 'react';
 const Modal = (props) => {
     const transition1 = useTransition(props.show,{
         from: {top: "100%"},
-        enter: {top: "20%"},
+        enter: {top: "10%"},
         leave: {top: "100%"}
     })
     const transition2 = useTransition(props.show, {

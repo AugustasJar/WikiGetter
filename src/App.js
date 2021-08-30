@@ -6,75 +6,82 @@ import './App.css';
 import './css-variables.css'
 import './css-variables.sass'
 
-import params from './Params';
+import params, {extractParams} from './Params';
 
-import HelpIcon from './components/UI/HelpIcon/HelpIcon.js'
 import SearchBar from "./components/SearchBar/SearchBar.js";
 import Button from "./components/UI/Button/Button.js";
 import Results from "./components/Results/Results";
-import Logo from './components/UI/Logo/Logo';
 import Footer from './components/Footer/Footer';
 import Modal from './components/UI/Modal/Modal';
 import SubHeader from "./components/SubHeader/SubHeader.js";
-import InfoBox from "./components/InfoBox/InfoBox.js";
+import HelpIcon from './components/UI/HelpIcon/HelpIcon';
 
 function App() {
   const searchBarREF = React.createRef();
   const [status, pages,fetchData] = useFetchData();
-  const [generatedPages,setGeneratedPages] = useState(null);
+  const [extractStatus, extractData,fetchExtractData] = useFetchData();
+  const [generatedPages,setGeneratedPages] = useState([]);
   const [lastTitle, setLastTitle] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [showResults,setShowResults] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [dropdownContent, setDropdownContent] = useState("")
+  const [showExtract, setShowExtract] = useState(false)
   const [guideText,setGuideText] = useState("");
   const [hasShown, sethasShown] = useState(false)
   const style = useSpring({
     marginTop: showDropdown ? "0px" : "-110px",
     opacity: showDropdown ? 1 : 0
   })
-  const guideFadeAway = useSpring({
-    opacity: showResults ? 1 : 0,
-    clamp: true,
-    tension: 50,
-    friction: 50,
-    delay: 100
-  })
+  const wikimapText = <div> 
+      <h2>Welcome to WikiMap</h2>
+      <ul>
+        <li>It uses Wikipedia API to simulate mind maps by accessing internal links in wikipedia<br /></li>
+        <li>Input a topic that interests you in the search <br /></li>
+        <li>click on the results to get more information</li>
+        <li> or you can expand the map by clicking on the triangles</li>
+        <li> you can reroll the results by clicking the button on the right</li>
+      </ul> 
+    </div>
   useEffect(() => {
     searchBarREF.current.focus();
   },[]);
   useEffect(() => {
     if ( status==="completed") {
       generatePages();
-      sethasShown(true);
-      setShowResults(state => (!state));
+      if (!hasShown) sethasShown(true); 
     }
   },[status]);
+  useEffect(() => {
+    if (extractStatus === "completed") {
+      const obj = Object.values(extractData.query.pages)[0];
+      const text = <div>
+        <h1>{obj.title}</h1>
+        <p>{obj.extract === "" ? "Unavailable" : obj.extract}</p>
+      </div>
+      setGuideText(text);
+      setShowExtract(true);
+      setShowModal(true);
+    }
+  }, [extractStatus])
+  useEffect(() => {
+    const content = document.getElementById('content');
+    setTimeout(() => {
+      content.scrollTo({
+        left: content.offsetWidth,
+        behavior: 'smooth'
+      })
+    },200)
+  }, [generatedPages])
   const searchHandler = () => {
-    console.log("searchHandler-enter")
     params.titles = searchBarREF.current.value;
-    if (params.titles != lastTitle && !showResults) {
-      fetchData(params);
-      setLastTitle(params.titles);
-    } else if (params.titles != lastTitle && showResults) {
-        setShowResults(state => !state);
-        setTimeout(()=> {
-          fetchData(params);
-          setLastTitle(params.titles);
-        },1000);
-   } else {
-        rerollHandler();
-   }
-  }
-  const randomHandler = () => {
-    setShowResults(state => {return !state});
+    fetchData(params);
+    setLastTitle(params.titles)
   }
   const rerollHandler = () => {
-    setShowResults(state => !state)
+    generatedPages.pop();
     setTimeout(() => {
       generatePages();
-      setShowResults(state => !state)
-    },1000)
+    },200)
   }
   const modalHandler = () => {
     setShowModal(state => !state);
@@ -83,7 +90,7 @@ function App() {
     if (pages!= null) {
       try {
         let arr = [];
-        const obj = pages.query.pages[Object.keys(pages.query.pages)[0]];
+        const obj = Object.values(pages.query.pages)[0];
         setGuideText(obj.extract);
         for (let i=0;i<6;i++) {
           let temp = obj.links[Math.floor(Math.random()*obj.links.length)].title;
@@ -95,58 +102,78 @@ function App() {
           }
         }
           setShowDropdown(false)
-          setGeneratedPages(arr);
+          setGeneratedPages(state => state.concat([arr]));
       }
-      catch (error) {setGeneratedPages(null);noResultsHandler()}
+      catch (error) {noResultsHandler()}
     }
   }
   const noResultsHandler = () => {
-    console.log("no Results Handler")
     setDropdownContent(
       <p>no results were found. <br/> try <b>random</b>?</p>
     )
     setShowDropdown(true);
   }
-  const changeTargetHandler = (target) => {
+  const changeTargetHandler = (target,childId, parentId) => {
+    const results = document.querySelectorAll(`#${parentId} .Result-container:not(#${childId})`);
+    if (generatedPages.length > 1) {
+      for (let i=0;i < results.length; i++) {
+        results[i].style.backgroundColor = "#b1b1b1"
+      }
+    }
     searchBarREF.current.value = target;
     searchHandler();
   }
   const goToHandler = () => {
-    const url = `https://en.wikipedia.org/wiki/${searchBarREF.current.value}`
+    const url = `https://en.wikipedia.org/wiki/${Object.values(extractData.query.pages)[0].title}`
     window.open(url)
+  }
+  const showExtractHandler = (title) => {
+    extractParams.titles = title;
+    fetchExtractData(extractParams);
+  }
+  const cleanSearchHandler = () => {
+    setGeneratedPages([]);
+    searchHandler();
+  }
+  const popResultsHandler = (index) => {
+    setGeneratedPages(state => state.slice(0,index));
+    cleanResults(index - 1);
+  }
+  const cleanResults = (index) => {
+    const results = document.querySelectorAll(`#RB${index}`);
+    if (generatedPages.length > 1) {
+      for(let i=0; i < results[0].children.length -1; i++) {
+        results[0].children[i].style.backgroundColor = '#306096'
+      }
+    }
   }
   return (
     <div className= "App">
+      <HelpIcon hasShown={hasShown} click={hasShown ? rerollHandler : showExtractHandler}/>
       <Modal show={showModal} toggleModal={modalHandler}>
-        <h1>Welcome to WikiMap</h1>
-        <ul>
-          <li>It uses Wikipedia API to simulate a mind maps by accessing internal links in wikipedia<br /></li>
-          <li>Input a topic that interests you in the search bar below the brain, and click 'search' <br /></li>
-          <li>You can mouse over the results to get snippets <br/></li>
-          <li>Due to inconcistencies with the API itself sometimes snippets are unavailable<br /></li>
-        </ul>
-        <Button click={modalHandler}>close</Button>
+        {hasShown ? guideText : wikimapText}
+        <div className="modal-buttons">
+          <Button click={modalHandler}>close</Button>
+          <Button click={goToHandler}>Go to</Button>
+        </div>
       </Modal>
       <div className="Header">
         <div className="Logo" />
         <div className="app-name"> Wikimap </div>
-        <SearchBar ref ={searchBarREF} click={searchHandler}/>
+        <SearchBar ref ={searchBarREF} click={cleanSearchHandler}/>
       </div>
-      <div className="content">
+      <div className="content" id="content">
         <SubHeader style={style} close={() => setShowDropdown(false)}>
           {dropdownContent}
         </SubHeader>
-        <a.div className="guide" style={hasShown ? guideFadeAway : {}}>
-          {showResults ? <InfoBox reroll={rerollHandler} goTo={goToHandler}> {guideText} </InfoBox> : hasShown ? <InfoBox> {guideText} </InfoBox>: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vulputate porttitor purus et commodo. Integer dictum leo volutpat leo ultricies porttitor. Vivamus vel feugiat libero. Aenean quis justo ut purus placerat ultrices. Donec sagittis dui et mi sodales, id consequat enim congue. Ut in rutrum enim. Donec in tortor libero."}
-        </a.div>
         <Results data={generatedPages} 
-          showResults={showResults} 
           changeTarget = {changeTargetHandler}
+          extractHandler = {showExtractHandler}
+          popResults = {popResultsHandler}
           />
       </div>
       <Footer />
     </div>
   )
 }
-
 export default App;

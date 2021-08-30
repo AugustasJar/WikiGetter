@@ -15,6 +15,7 @@
 
 @media (min-width: 700px) {
   .Footer {
+    position: relative;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

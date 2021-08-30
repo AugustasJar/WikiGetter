@@ -8,6 +8,7 @@
   position: relative;
   margin: 10px 20px;
   width: 80%;
+  max-width: 400px;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
@@ -20,11 +21,14 @@
   font-size: 20px;
   font-weight: 600;
   color: white;
+  -webkit-transition: background-color 0.25s;
+  transition: background-color 0.25s;
+  cursor: pointer;
 }
 
 .Result-container:hover {
   background-color: #ffffff;
-  color: #686868;
+  color: #464646;
   border-color: #acacac;
   -webkit-transition: 0.1s;
   transition: 0.1s;
@@ -32,6 +36,7 @@
 
 .Result {
   display: block;
+  margin-right: 5px;
 }
 
 .Result-button {
@@ -46,8 +51,12 @@
   height: 0;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1279px) {
   .Result-container {
+    padding: 9px;
+    font-size: 20px;
+  }
+  .Result-container-disabled {
     padding: 9px;
     font-size: 20px;
   }

@@ -9,3 +9,12 @@ let params = {
     pllimit: 'max'
   };
 export default params;
+export let extractParams = {
+  action: "query",
+    titles: "",
+    format: "json",
+    prop: 'extracts',
+    exsentences: '1',
+    exlimit: '1',
+    explaintext: '1',
+}
