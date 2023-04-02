@@ -8,4 +8,8 @@ It works by using the WIKIPEDIA API to find hyperlinks to related topics and thu
 
 Sadly, this project hasn't been updated for a number of years and during the time other people got the same idea and created better website with the same promise, but looking at my repositories initialization date, I believe I was the first.
 
+Try inputing a prompt into the search bar
+
 https://dev9335.d2hl3m19nrsy6n.amplifyapp.com
+
+by clicking on the answers you can either get a short description or by clicking on the arrow you can use the prompt as the next stage.
